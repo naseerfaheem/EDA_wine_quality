@@ -1,0 +1,477 @@
+99.99 > 100 || 45 < 7.3 || 4 != 4.0
+TRUE && 62 < 62 && 44 >= 44
+TRUE && FALSE || 9 >= 4 && 3 < 6
+FALSE && 6 >= 6 || 7 >= 8 || 50 <= 49.5
+!(8 > 4) ||  5 == 5.0 && 7.8 >= 7.79
+swirl()
+library(swril)
+swirl()
+install.packages("swril")
+library(swirl)
+swirl()
+5+7
+x <- 5+7
+x
+x-3
+y <- x-3
+y
+z <-c(1.1, 9, 3.14)
+?c
+z
+c(z, 555)
+c(z, 555, z)
+z * 2 + 100
+my_sqrt <- sqrt(z-1)
+my_sqrt
+my_div <- z/my_sqrt
+my_div
+c(1,2,3,4) + C(0,10)
+c(1,2,3,4) + C(0:10)
+c(1, 2, 3, 4)
+c(1,2,3,4) + c(0,10)
+c(1,2,3,4) + c(0, 10, 100)
+z * 2 + 1000
+my_div
+exit()
+bye
+bye)()
+ggplot(aes(x= friend_count), data = pf) +
+geom_histogram(color = 'black', fill = '#F79420') +
+xlab('Normal Friend Count') +
+ylab('Number of Users')
+pf <- read.csv('pseudo_facebook.tsv', sep = '\t')
+library(ggplot2)
+library(gridExtra)
+ggplot(aes(x= friend_count), data = pf) +
+geom_histogram(color = 'black', fill = '#F79420') +
+xlab('Normal Friend Count') +
+ylab('Number of Users')
+ggplot(aes(x=(log10(pf$friend_count)), data = pf) +
+geom_histogram(color = 'black', fill = '#F79420') +
+xlab('Normal Friend Count') +
+ylab('Number of Users')
+ggplot(aes(x=(log10(pf$friend_count)), data = pf) +
+geom_histogram(color = 'black', fill = '#F79420') +
+xlab('Normal Friend Count') +
+ylab('Number of Users')
+ggplot(aes(x=friend_count), data = pf) +
+geom_histogram(color = 'black', fill = '#F79420') +
+xlab('Normal Friend Count')+
+ylab('Number of Users') +
+scale_x_log10()
+ggplot(aes(x=friend_count), data = pf) +
+geom_histogram(color = 'black', fill = '#F79420') +
+xlab('Normal Friend Count')+
+ylab('Number of Users') +
+scale_x_sqrt()
+grid.arrange(p1, p2, p3, ncol=2)
+grid.arrange(p1, p2, p3, ncol=2)
+p1 <- ggplot(aes(x= friend_count), data = pf) +
+geom_histogram(color = 'black', fill = '#F79420') +
+xlab('Normal Friend Count') +
+ylab('Number of Users')
+p2 <- ggplot(aes(x=friend_count), data = pf) +
+geom_histogram(color = 'black', fill = '#F79420') +
+xlab('LOG10 Friend Count')+
+ylab('Number of Users') +
+scale_x_log10()
+p3 <- ggplot(aes(x=friend_count), data = pf) +
+geom_histogram(color = 'black', fill = '#F79420') +
+xlab('SQRT Friend Count')+
+ylab('Number of Users') +
+scale_x_sqrt()
+grid.arrange(p1, p2, p3, ncol=2)
+logScale <- qplot(x=log10(friend_count), data=pf)
+countScale <- ggplot(aes(x=friend_count), data=pf) +
+geom_histogram() +
+scale_x_log10()
+grid.arrange(logScale, countScale, ncol = 2)
+ggplot(aes(x=friend_count), data = subset(pf, !is.na(gender))) +
+geom_histogram(binwidth = 10) +
+scale_x_continuous(limits=c(0,1000), breaks = seq(0, 1000, 50))
+ggplot(aes(x=friend_count), data = subset(pf, !is.na(gender))) +
+geom_histogram(binwidth = 10) +
+scale_x_continuous(limits=c(0,1000), breaks = seq(0, 1000, 50)) +
+facet_wrap(~gender)
+ggplot(aes(x=friend_count, y= ..count../ sum(..count..)), data = subset(pf, !is.na(gender))) +
+geom_freqpoly(aes(color-gender),binwidth = 10) +
+scale_x_continuous(limits=c(0,1000), breaks = seq(0, 1000, 50))
+ggplot(aes(x = friend_count, y = ..count../sum(..count..)),
+data = subset(pf, !is.na(gender))) +
+geom_freqpoly(aes(color = gender), binwidth=10) +
+scale_x_continuous(limits = c(0, 1000), breaks = seq(0, 1000, 50)) +
+xlab('Friend Count') +
+ylab('Proportion of users with that friend count')
+qplot(x=friend_count, data=subset(pf, !is.na(gender)), binwidth=10, geom = 'freqpoly') +
+scale_x_continuous(lim=c(0,1000), breaks = seq(0,1000, 50)) +
+facet_wrap(~gender)
+qplot(x=friend_count, data=subset(pf, !is.na(gender)), binwidth=10, geom = 'freqpoly', color=gender) +
+scale_x_continuous(lim=c(0,1000), breaks = seq(0,1000, 50))
+qplot(x=friend_count, y = ..count../sum(..count..),
+data=subset(pf, !is.na(gender)), binwidth=10,
+geom = 'freqpoly', color=gender) +
+scale_x_continuous(lim=c(0,1000), breaks = seq(0,1000, 50))
+qplot(x=friend_count, y = ..count../sum(..count..),
+data=subset(pf, !is.na(gender)),
+xlab = 'Friend Count',
+ylab = 'Proportion of Users with that friend count',
+binwidth=10, geom = 'freqpoly', color=gender) +
+scale_x_continuous(lim=c(0,1000), breaks = seq(0,1000, 50))
+qplot(x=friend_count, y = ..count../sum(..count..),
+data=subset(pf, !is.na(gender)),
+xlab = 'Friend Count',
+ylab = 'Proportion of Users with that friend count',
+binwidth=10, geom = 'freqpoly', color=gender) +
+scale_x_continuous(lim=c(0,1000), breaks = seq(0,1000, 50))
+p1 <- ggplot(aes(x= friend_count), data = pf) +
+geom_histogram(color = 'black', fill = '#F79420') +
+xlab('Normal Friend Count') +
+ylab('Number of Users')
+# Friend count transformed using log10:
+p2 <- ggplot(aes(x=friend_count), data = pf) +
+geom_histogram(color = 'black', fill = '#F79420') +
+xlab('LOG10 Friend Count')+
+ylab('Number of Users') +
+scale_x_log10()
+# Friend count transformed using sqrt:
+p3 <- ggplot(aes(x=friend_count), data = pf) +
+geom_histogram(color = 'black', fill = '#F79420') +
+xlab('SQRT Friend Count')+
+ylab('Number of Users') +
+scale_x_sqrt()
+#Now displaying all the plots in one grid.
+grid.arrange(p1, p2, p3, ncol=2)
+library(dplyr)
+install.packages("dplyr")
+library(dplyr)
+?select
+install.packages("nycflights13")
+library(nycflights13)
+?airlines
+?planes
+select(storms, pressure)
+select(storms, wind, pressure)
+select(storms, wind, pressure)
+filter(storms, date > 2000-01-01)
+filter(storms, date > "2000-01-01")
+filter(storms, pressure > 1010)
+select(storms, -storm)
+storms
+select(storms, -name)
+filter(storms, wind >= 50)
+filter(storms, wind >= 50,
+storm %in% c("Alberto", "Alex", "Allison"))
+filter(storms, wind >= 50,
+name %in% c("Alberto", "Alex", "Allison"))
+mutate(storms, ratio = pressure / wind)
+mutate(storms, ratio = pressure / wind, inverse = ratio^-1)
+pollution %>%
+summarise(median = median(amount), variance = var(amount))
+install.packages("EDWAR")
+install.packages("dplyr")
+arrange(storms, wind)
+arrange(storms, desc(wind))
+arrange(storms, wind)
+arrange(storms, wind, date)
+arrange(storms, wind, year, month, day, hour)
+select(tb, child:elderly)
+storms %>%
+select(name, pressure)
+storms %>%
+filter(wind>=50)
+storms %>%
+filter(wind >= 50) %>%
+select(name, pressure)
+storms %>%
+mutate(ratio = pressure / wind) %>%
+select(name, ratio)
+install.packages("tidyverse")
+verse_update()
+install.packages("nycflights13", "gapminder", "Lahman")
+install.packages("nycflights13", "gapminder", "Lahman")
+devtools::install_github("hadley/r4ds")
+library(tidyverse)
+getwd()
+library(ggplot2)
+pf <- read.csv('pseudo_facebook.tsv', sep = '\t')
+qplot(x=age, y=friend_count, data= pf)
+install.packages('alr3')
+library(alr3)
+data(Mitchell)
+?Mitchell
+ggplot(aes(Temp, Month), data=Mitchell)+
+geom_point()
+ggplot(aes(Month, Temp), data=Mitchell)+
+geom_point()
+qplot(data = Mitchell, Month, Temp)
+cor.test(Mitchell$Month, Mitchell$Temp, method = "pearson")
+ggplot(aes(x=Month, y=Temp), data=Mitchell) +
+geom_point()+
+scale_x_continuous()
+ggplot(aes(x=Month, y=Temp), data=Mitchell) +
+geom_point()+
+scale_x_continuous(limits = c(1,12))
+ggplot(aes(x=Month, y=Temp), data=Mitchell) +
+geom_point()+
+scale_x_continuous(limits = c(1,12), breaks = seq(1,12,1))
+range(Mitchell$Month)
+ggplot(aes(x=Month, y=Temp), data=Mitchell) +
+geom_point()+
+scale_x_continuous(breaks = seq(0,203,12))
+ggplot(aes(x=Month, y=Temp), data=Mitchell) +
+geom_point()+
+scale_x_discrete(breaks = seq(0,203,12))
+ggplot(aes(x=Month, y=Temp), data=Mitchell) +
+geom_point()+
+scale_x_continuous(breaks = seq(0,203,12))
+ggplot(aes(x=Month, y=Temp), data=Mitchell) +
+geom_point()+
+scale_x_continuous(breaks = seq(0,203,12))
+range(Mitchell$Month) # We use this to get the range of the months so that we could use it in our lower and upper limits.
+ggplot(aes(x=Month, y=Temp), data=Mitchell) +
+geom_line()+
+scale_x_continuous(breaks = seq(0,203,12))
+ggplot(aes(x=Month, y=Temp), data=Mitchell) +
+geom_line()+
+scale_x_continuous(breaks = seq(0,203,12))
+ggplot(aes(x=Month, y=Temp), data=Mitchell) +
+geom_line(color='Red')+
+scale_x_continuous(breaks = seq(0,203,12))
+dcor.ttest(Mitchell$Month, Mitchell$Temp)
+install.packages("energy")
+dcor.ttest(Mitchell$Month, Mitchell$Temp)
+ggplot(aes(x=(Month%%12),y=Temp), data=Mitchell)+
+geom_point()
+ggplot(aes(x=age, y= friend_count), data=pf.fc_by_age)+
+geom_line()
+group_by(age) %>%
+summarise(friend_count_mean = mean(friend_count),
+friend_count_median = median(friend_count),
+n=n())%>%
+arrange(age)
+pf.fc_by_age <- pf %>%
+group_by(age) %>%
+summarise(friend_count_mean = mean(friend_count),
+friend_count_median = median(friend_count),
+n=n())%>%
+arrange(age)
+pf.fc_by_age
+ggplot(aes(x=age, y= friend_count), data=pf.fc_by_age)+
+geom_line()
+ggplot(aes(x=age, y= friend_count_mean), data=pf.fc_by_age)+
+geom_line()
+head(pf.fc_by_age, 10)
+pf.fc_by_age[17:19, ]
+pf$age_with_months <- pf$age + (1 - pf$dob_month / 12)
+View(pf)
+pf$age_with_months <- pf$age + (12- pf$dob_month)/12
+pf.fc_by_age_months <- pf.fc_by_age %>%
+group_by(age_with_months) %>%
+summarise(mean_friend_count = mean(friend_count),
+median_friend_count= median(friend_count),
+n= n()) %>%
+arrange(age_with_months)
+pf$age_with_months <- pf$age + (12- pf$dob_month)/12
+pf.fc_by_age_months <- pf %>%
+group_by(age_with_months) %>%
+summarise(mean_friend_count = mean(friend_count),
+median_friend_count= median(friend_count),
+n= n()) %>%
+arrange(age_with_months)
+pf.fc_by_age_months
+age_with_months_groups <- group_by(pf, age_with_months)
+pf.fc_by_age_months2 <- summarise(age_with_months_groups,
+friend_count_mean  = mean(friend_count),
+friend_count_median = median(friend_count),
+n= n())
+pf.fc_by_age_months2 <- arrange(pf.fc_by_age_months2, age_with_months)
+pf.fc_by_age_months <- pf %>%
+group_by(age_with_months) %>%
+summarise(friend_count_mean = mean(friend_count),
+friend_count_median= median(friend_count),
+n= n()) %>%
+arrange(age_with_months)
+pf.fc_by_age_months
+ggplot(aes(x= subset(pf.fc_by_age_months, age_with_months<=70), y=friend_count_mean), data=pf.fc_by_age_months)+
+geom_line()
+ggplot(aes(x=age_with_months, y=friend_count_mean), data=pf.fc_by_age_months)+
+geom_line()
+ggplot(aes(x=age_with_months, y=friend_count_mean), data=pf.fc_by_age_months)+
+geom_line()+
+xlim(13,70)
+ggplot(aes(x=age_with_months, y=friend_count_mean), data=pf.fc_by_age_months)+
+geom_line()+
+xlim(13,70)+
+ylim(0, 500)
+ggplot(aes(x= age_with_months, y=friend_count_mean),
+data = subset(pf.fc_by_age_months, age_with_months <71)) +
+geom_line()
+ggplot(aes(x=age_with_months, y=friend_count_mean), data=pf.fc_by_age_months)+
+geom_line()+
+xlim(13,70)+
+ylim(0, 500)
+ggplot(aes(x= age_with_months, y=friend_count_mean),
+data = subset(pf.fc_by_age_months, age_with_months <71)) +
+geom_line()
+ggplot(aes(x=age, y=friend_count_mean),
+data = pf.fc_by_age)+
+geom_line()
+ggplot(aes(x=age, y=friend_count_mean),
+data = subset(pf.fc_by_age, age<71))+
+geom_line()
+ggplot(aes(x= age_with_months, y=friend_count_mean),
+data = subset(pf.fc_by_age_months, age_with_months <71)) +
+geom_line()
+library(gridExtra)
+grid.arrange(p2, p1, ncol=1)
+p1 <- ggplot(aes(x=age, y=friend_count_mean),
+data = subset(pf.fc_by_age, age<71))+
+geom_line()
+p2 <- ggplot(aes(x= age_with_months, y=friend_count_mean),
+data = subset(pf.fc_by_age_months, age_with_months <71)) +
+geom_line()
+grid.arrange(p2, p1, ncol=1)
+p1 <- ggplot(aes(x=age, y=friend_count_mean),
+data = subset(pf.fc_by_age, age<71))+
+geom_line()+
+geom_smooth()
+p2 <- ggplot(aes(x= age_with_months, y=friend_count_mean),
+data = subset(pf.fc_by_age_months, age_with_months <71)) +
+geom_line()+
+geom_smooth()
+library(gridExtra)
+grid.arrange(p2, p1, ncol=1)
+library(ggplot2)
+library(ggplot2)
+install.packages("ggplot2")
+library(ggplot2)
+data(diamonds)
+str(diamonds)
+library(ggplot2)
+library(GGally)
+library(scales)
+library(memisc)
+set.seed(20022012)
+diamond_samp <- diamonds[sample(1:length(diamonds$price), 10000), ]
+ggpairs(diamond_samp, params = c(shape = I('.'), outlier.shape = I('.')))
+library(GGally)
+ggpairs(diamond_samp, params = c(shape = I('.'), outlier.shape = I('.')))
+ggpairs(diamond_samp,
+lower = list(continuous = wrap("points", shape = I('.'))),
+upper = list(combo = wrap("box", outlier.shape = I('.'))))
+ggpairs(diamond_samp,
+lower = list(continuous = wrap("points", shape = I('.'))),
+upper = list(combo = wrap("box", outlier.shape = I('.'))))
+getwd()
+getwd()
+setwd("D:/Google_Drive/Workspace/Udacity/data-analyst/term2/07-EDA/09-diamonds-price-pred")
+setwd("D:/Google_Drive/Workspace/Udacity/data-analyst/term2/07-EDA/final-project")
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+library(RColorBrewer)
+getwd()
+getwd()
+r_wine <- read.csv("wineQualityReds.csv")
+rwine
+r_wine
+w_wine
+w_wine <- read.csv("wineQualityWhites.csv")
+w_wine
+shape(r_wine)
+dim(r_wine)
+dim(w_wine)
+str(r_wine)
+summary(r_wine)
+table(w_wine)
+table(w_wine$fixed.acidity)
+summary(w_wine)
+summary(r_wine)
+summary(w_wine)
+summary(r_wine)
+summary(w_wine)
+library(GGally)
+set.seed(1122)
+r_wine_subset <- r_wine[, 2:11]
+ggpairs(r_wine_subset[sample.int(nrow(r_wine_subset), 1000), ])
+ggpairs(r_wine_subset[sample.int(nrow(r_wine_subset), 1000), ])
+names(r_wine_subset)
+names(r_wine)
+r_wine_subset <- r_wine[, 2:]
+r_wine_subset <- r_wine[, 2:13]
+names(r_wine_subset)
+ggpairs(r_wine_subset[sample.int(nrow(r_wine_subset), 1000), ])
+w_wine_subset <- w_wine[, 2:13]
+names(w_wine_subset)
+ggpairs(w_wine_subset[sample.int(nrow(w_wine_subset), 1000), ])
+ggplot(aes(quality), data = r_wine)+
+geom_histogram()
+ggplot(aes(quality), data = r_wine)+
+geom_histogram()
+ggplot(aes(quality), data = w_wine)+
+geom_histogram()
+ggplot(aes(quality), data = w_wine)+
+geom_histogram()+
+xlim(breaks=seq(1,10, 1))
+ggplot(aes(quality), data = w_wine)+
+geom_histogram()+
+scale_x_continuous(breaks=seq(1,10, 1))
+ggplot(aes(quality), data = w_wine)+
+geom_histogram()+
+scale_x_descrete(breaks=seq(1,10, 1))
+ggplot(aes(quality), data = w_wine)+
+geom_histogram()+
+scale_x_discrete(breaks=seq(1,10, 1))
+ggplot(aes(quality), data = w_wine)+
+geom_histogram()+
+scale_x_continuous(breaks=seq(1,10, 1))
+ggplot(aes(quality), data = r_wine)+
+geom_histogram()+
+scale_x_continuous(breaks=seq(1,10, 1))
+ggplot(aes(fixed.acidity), data = r_wine)+
+geom_histogram()
+ggplot(aes(fixed.acidity), data = w_wine)+
+geom_histogram()
+r_wine["type"] <- "red"
+w_wine["type"] <- "white"
+wine <- rbind(r_wine, w_wine)
+str(wine)
+names(wine)
+head(wine)
+tail(wine)
+summary(wine)
+table(wine$quality)
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+library(RColorBrewer)
+library(GGally)
+tail(wine)
+summary(wine)
+table(wine$residual.sugar)
+ggplot(wine, aes(residual.sugar))+
+geom+histogram()
+ggplot(wine, aes(residual.sugar))+
+geom_histogram()
+ggplot(wine, aes(residual.sugar))+
+geom_histogram(fill='brown')
+ggplot(wine, aes(residual.sugar))+
+geom_histogram(fill='brown', color='black')
+ggplot(wine, aes(residual.sugar))+
+geom_histogram(fill='brown', color='black')+
+xlim(breaks = seq(1,70,2))
+ggplot(wine, aes(residual.sugar))+
+geom_histogram(fill='brown', color='black')+
+scale_x_continuous(breaks = seq(1,70,2)))
+ggplot(wine, aes(residual.sugar))+
+geom_histogram(fill='brown', color='black')+
+scale_x_continuous(breaks = seq(1,70,2))
+ggplot(wine, aes(residual.sugar))+
+geom_histogram(fill='brown', color='black')+
+scale_x_continuous(breaks = seq(0,66,2))
+set.seed(1122)
+theme_set(theme_minimal(20))
+ggpairs(wine[sample.int(nrow(wine), 1000), ])
+ggpairs(wine[sample.int(nrow(wine), 1000), ])
+ggpairs(wine[sample.int(nrow(wine), 1000), ])
+ggpairs(wine[sample.int(nrow(wine), 1000), ])

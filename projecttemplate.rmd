@@ -1,0 +1,278 @@
+TITLE by YOUR_NAME_HERE
+Wine Quality by Naseer Faheem 
+
+========================================================
+```{r}
+getwd()
+#Mac
+setwd("/Users/naseerfaheem/Desktop/google_drive/Workspace/Udacity/data-analyst/term2/07-EDA/final-project")
+#Windows: 
+setwd("D:/Google_Drive/Workspace/Udacity/data-analyst/term2/07-EDA/final-project")
+getwd()
+```
+
+> **Tip**: You will see quoted sections like this throughout the template to
+help you construct your report. Make sure that you remove these notes before
+you finish and submit your project!
+
+> **Tip**: One of the requirements of this project is that your code follows
+good formatting techniques, including limiting your lines to 80 characters or
+less. If you're using RStudio, go into Preferences \> Code \> Display to set up
+a margin line to help you keep track of this guideline!
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
+# Load all of the packages that you end up using in your analysis in this code
+# chunk.
+
+# Notice that the parameter "echo" was set to FALSE for this code chunk. This
+# prevents the code from displaying in the knitted HTML output. You should set
+# echo=FALSE for all code chunks in your file, unless it makes sense for your
+# report to show the code that generated a particular plot.
+
+# The other parameters for "message" and "warning" should also be set to FALSE
+# for other code chunks once you have verified that each plot comes out as you
+# want it to. This will clean up the flow of your report.
+
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+library(RColorBrewer)
+library(GGally)
+
+```
+Questions: 
+Alcohol content vs. quality
+pH vs. quality 
+density vs. quality. 
+residual sugar: the amount of sugar remaining after fermentation stops, it's rare to find wines with less than 1 gram/liter and wines with greater than 45 grams/liter are considered sweet
+ chlorides: the amount of salt in the wine
+    9 - pH: describes how acidic or basic a wine is on a scale from 0 (very acidic) to 14 (very basic); most wines are between 3-4 on the pH scale
+
+   10 - sulphates: a wine additive which can contribute to sulfur dioxide gas (S02) levels, wich acts as an antimicrobial and antioxidant
+
+   11 - alcohol: the percent alcohol content of the wine
+```{r echo=FALSE, Load_the_Data}
+# Load the Data
+r_wine <- read.csv("wineQualityReds.csv")
+r_wine
+dim(r_wine)
+str(r_wine)
+w_wine <- read.csv("wineQualityWhites.csv")
+w_wine
+dim(w_wine)
+
+#create a varaible to distinguish each dataset:
+r_wine["type"] <- "red"
+w_wine["type"] <- "white"
+
+#combining both datasets into one: 
+wine <- rbind(r_wine, w_wine)
+
+str(wine)
+names(wine)
+head(wine)
+tail(wine)
+```
+
+> **Tip**: Before you create any plots, it is a good idea to provide a short
+introduction into the dataset that you are planning to explore. Replace this
+quoted text with that general information!
+
+>This tidy data set contains 1,599 red wines with 11 variables and 4898 white wines with 11 variables on the chemical properties of the wine. At least 3 wine experts rated the quality of each wine, providing a rating between 0 (very bad) and 10 (very excellent). For the sake of analysis, I combined both datasets into one dataset. I created a new variable designating the type of the wine, whether red or white wine. 
+
+>Before going furthur in the analysis, its import to know the variables in the dataset and what they represent. The following two sections describe each variable in great detail so that it makes it easier to understand the result of the dataset. 
+
+##Attribute information:
+   For more information, read [Cortez et al., 2009].
+   Input variables (based on physicochemical tests):
+   1 - fixed acidity (tartaric acid - g / dm^3)
+   2 - volatile acidity (acetic acid - g / dm^3)
+   3 - citric acid (g / dm^3)
+   4 - residual sugar (g / dm^3)
+   5 - chlorides (sodium chloride - g / dm^3
+   6 - free sulfur dioxide (mg / dm^3)
+   7 - total sulfur dioxide (mg / dm^3)
+   8 - density (g / cm^3)
+   9 - pH
+   10 - sulphates (potassium sulphate - g / dm3)
+   11 - alcohol (% by volume)
+   Output variable (based on sensory data): 
+   12 - quality (score between 0 and 10)
+   
+##Description of attributes:
+   1 - fixed acidity: most acids involved with wine or fixed or nonvolatile (do not evaporate readily)
+   2 - volatile acidity: the amount of acetic acid in wine, which at too high of levels can lead to an unpleasant, vinegar taste
+   3 - citric acid: found in small quantities, citric acid can add 'freshness' and flavor to wines
+   4 - residual sugar: the amount of sugar remaining after fermentation stops, it's rare to find wines with less than 1 gram/liter and wines with greater than 45 grams/liter are considered sweet
+   5 - chlorides: the amount of salt in the wine
+   6 - free sulfur dioxide: the free form of SO2 exists in equilibrium between molecular SO2 (as a dissolved gas) and bisulfite ion; it prevents microbial growth and the oxidation of wine
+   7 - total sulfur dioxide: amount of free and bound forms of S02; in low concentrations, SO2 is mostly undetectable in wine, but at free SO2 concentrations over 50 ppm, SO2 becomes evident in the nose and taste of wine
+   8 - density: the density of water is close to that of water depending on the percent alcohol and sugar content
+   9 - pH: describes how acidic or basic a wine is on a scale from 0 (very acidic) to 14 (very basic); most wines are between 3-4 on the pH scale
+   10 - sulphates: a wine additive which can contribute to sulfur dioxide gas (S02) levels, wich acts as an antimicrobial and antioxidant
+   11 - alcohol: the percent alcohol content of the wine
+   Output variable (based on sensory data): 
+   12 - quality (score between 0 and 10)
+
+
+# Univariate Plots Section
+
+> **Tip**: In this section, you should perform some preliminary exploration of
+your dataset. Run some summaries of the data and create univariate plots to
+understand the structure of the individual variables in your dataset. Don't
+forget to add a comment after each plot or closely-related group of plots!
+There should be multiple code chunks and text sections; the first one below is
+just to help you get started.
+
+```{r echo=FALSE, Univariate_Plots}
+#Running the summary of the dataset to see everyting at a glance: 
+summary(wine)
+#One thing that standout is the risidual sugar. The mean of the variable is 5.44 whereas the max value is 65.8. It looks like we might have some outliers, which include very sweet wines. We could also notice that the mean wine quality  5.81 which we have minimums of 3 and maximums of 9. It shows that no wine recieved a quality of a perfect 10. Similarly, no wine recieved a quality of lower than 3. 
+table(wine$residual.sugar)
+# If we look at the distribution of the residual sugar, we can see that there is only wine with the residual sugar value of 65.8. 
+
+#To illustrate more, lets see a histogram of the residual sugar distribution: 
+ggplot(wine, aes(residual.sugar))+
+  geom_histogram(fill='brown', color='black')+
+  scale_x_continuous(breaks = seq(0,66,2))
+
+# The above table shows that the majority of the wine has a quality of 5 and 6. 
+#Sampling the wines: 
+set.seed(1122)
+#subseting the dataset to exclude the first variable: 
+r_wine_subset <- r_wine[, 2:13]
+names(r_wine_subset)
+#Plotting only 1000 of the observations: 
+ggpairs(r_wine_subset[sample.int(nrow(r_wine_subset), 1000), ])
+
+
+```
+
+> **Tip**: Make sure that you leave a blank line between the start / end of
+each code block and the end / start of your Markdown text so that it is
+formatted nicely in the knitted text. Note as well that text on consecutive
+lines is treated as a single space. Make sure you have a blank line between
+your paragraphs so that they too are formatted for easy readability.
+
+# Univariate Analysis
+
+> **Tip**: Now that you've completed your univariate explorations, it's time to
+reflect on and summarize what you've found. Use the questions below to help you
+gather your observations and add your own if you have other thoughts!
+
+### What is the structure of your dataset?
+
+### What is/are the main feature(s) of interest in your dataset?
+
+### What other features in the dataset do you think will help support your \
+investigation into your feature(s) of interest?
+
+### Did you create any new variables from existing variables in the dataset?
+
+### Of the features you investigated, were there any unusual distributions? \
+Did you perform any operations on the data to tidy, adjust, or change the form \
+of the data? If so, why did you do this?
+
+
+# Bivariate Plots Section
+
+> **Tip**: Based on what you saw in the univariate plots, what relationships
+between variables might be interesting to look at in this section? Don't limit
+yourself to relationships between a main output feature and one of the
+supporting variables. Try to look at relationships between supporting variables
+as well.
+
+```{r echo=FALSE, Bivariate_Plots}
+
+```
+
+# Bivariate Analysis
+
+> **Tip**: As before, summarize what you found in your bivariate explorations
+here. Use the questions below to guide your discussion.
+
+### Talk about some of the relationships you observed in this part of the \
+investigation. How did the feature(s) of interest vary with other features in \
+the dataset?
+
+### Did you observe any interesting relationships between the other features \
+(not the main feature(s) of interest)?
+
+### What was the strongest relationship you found?
+
+
+# Multivariate Plots Section
+
+> **Tip**: Now it's time to put everything together. Based on what you found in
+the bivariate plots section, create a few multivariate plots to investigate
+more complex interactions between variables. Make sure that the plots that you
+create here are justified by the plots you explored in the previous section. If
+you plan on creating any mathematical models, this is the section where you
+will do that.
+
+```{r echo=FALSE, Multivariate_Plots}
+
+```
+
+# Multivariate Analysis
+
+### Talk about some of the relationships you observed in this part of the \
+investigation. Were there features that strengthened each other in terms of \
+looking at your feature(s) of interest?
+
+### Were there any interesting or surprising interactions between features?
+
+### OPTIONAL: Did you create any models with your dataset? Discuss the \
+strengths and limitations of your model.
+
+------
+
+# Final Plots and Summary
+
+> **Tip**: You've done a lot of exploration and have built up an understanding
+of the structure of and relationships between the variables in your dataset.
+Here, you will select three plots from all of your previous exploration to
+present here as a summary of some of your most interesting findings. Make sure
+that you have refined your selected plots for good titling, axis labels (with
+units), and good aesthetic choices (e.g. color, transparency). After each plot,
+make sure you justify why you chose each plot by describing what it shows.
+
+### Plot One
+```{r echo=FALSE, Plot_One}
+
+```
+
+### Description One
+
+
+### Plot Two
+```{r echo=FALSE, Plot_Two}
+
+```
+
+### Description Two
+
+
+### Plot Three
+```{r echo=FALSE, Plot_Three}
+
+```
+
+### Description Three
+
+------
+
+# Reflection
+
+> **Tip**: Here's the final step! Reflect on the exploration you performed and
+the insights you found. What were some of the struggles that you went through?
+What went well? What was surprising? Make sure you include an insight into
+future work that could be done with the dataset.
+
+> **Tip**: Don't forget to remove this, and the other **Tip** sections before
+saving your final work and knitting the final report!
+
+##Reference: 
+  P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. 
+  Modeling wine preferences by data mining from physicochemical properties.
+  In Decision Support Systems, Elsevier, 47(4):547-553. ISSN: 0167-9236.
