@@ -146,7 +146,9 @@ In this section, I will be plotting the distribution of the individual variable 
 ggplot(wine, aes(fixed.acidity, fill=type))+
   geom_bar(binwidth = 1)+
   scale_x_continuous(breaks = seq(3, 16, 1), lim = c(3, 16))+
-  scale_y_sqrt()
+  scale_y_sqrt()+
+  xlab("Wine Count")+
+  ylab("Wine fixed acidity")
 
 ```
 ```{r fixed acidity summary}
@@ -351,15 +353,13 @@ ggplot(wine, aes(quality, fill=type))+
 >1.12.2 The most frequent quality for both types of wine is 6 and then 5. It will be useful to see if a certain chemcial affects the wine quality. 
 
 
-```{r alcohol}
 
-ggplot(aes(x=alcohol), data = wine)+
+
+```{r alcohol}
+ ggplot(aes(x=alcohol), data = wine)+
   geom_density(aes(fill=type))+
   facet_wrap(~quality)
-```
-
-```{r alcohol}
- 
+names(r_wine)
 ```
 
 > **Tip**: Make sure that you leave a blank line between the start / end of
@@ -413,6 +413,56 @@ theme_set(theme_minimal(20))
 ggpairs(wine[sample.int(nrow(wine), 1000), ])
 ```
 
+> Next, lets look at the correlation of the variables and see how correlated our variables are the wine quality:
+
+```{r}
+cor(x=wine[,2:12], y=wine$quality)
+```
+
+> Alcohol, density, chlorides and volatile acidity are correlated with wine quality. In the following section, we will explore these correlations in more details. 
+
+## 2.1.1 Alcohol Vs. Quality
+```{r alcohol vs. quality}
+
+ggplot(aes(quality,alcohol, color=type), data = wine)+
+  geom_point(position = 'jitter', alpha=0.2)+
+  geom_smooth(method = 'lm', color='black')+
+  facet_wrap(~type)
+```
+> We could see that higher quality wines tend to have more alcohol content. We could also see that the line for white wines is more steep than the red wine. This means the correlation of white wine with higher quailty is higher for white wines. 
+
+## 2.2.1 Density vs. Quality
+```{r density vs. quality}
+ggplot(aes(quality,density, color=type), data = wine)+
+  geom_point(position = 'jitter', alpha=0.5)+
+  geom_smooth(method = 'lm', color='black')+
+  facet_wrap(~type)
+```
+> The above plot shows that ther is a negative correlation between density and wine quality.. As the water density increases, the wine quality decreases. Again, it looks like the the correlation is stronger for white wines compared to red wines. 
+
+## 2.3.1 Chlorides vs. Quality
+```{r chlorides vs. quality}
+ggplot(aes(quality,chlorides, color=type), data = wine)+
+  geom_point(position = 'jitter', alpha=0.5)+
+  geom_smooth(method = 'lm', color='black')+
+  facet_wrap(~type)
+```
+>The above plot shows that there is negative and weak correlation between the chlorides and the wine qaulity
+
+## 2.4.1 Chlorides vs. Quality
+```{r volatile acidity vs. quality}
+ggplot(aes(quality,volatile.acidity, color=type), data = wine)+
+  geom_point(position = 'jitter', alpha=0.5)+
+  geom_smooth(method = 'lm', color='black')+
+  facet_wrap(~type)
+
+```
+> The above plot shows that there is a strong negative correlation between the volatile acidity of red wine and it's quality, however, the correlation of volatile and white wine is somehow weak. 
+
+
+
+
+
 > **Tip**: Based on what you saw in the univariate plots, what relationships
 between variables might be interesting to look at in this section? Don't limit
 yourself to relationships between a main output feature and one of the
@@ -420,21 +470,6 @@ supporting variables. Try to look at relationships between supporting variables
 as well.
 
 ## 2.1.1
-```{r Chlorides vs. residual sugar}
-ggplot(aes(chlorides, residual.sugar), data = wine)+
-  geom_point(aes(color=type))+
-  xlim(0, quantile(wine$chlorides, 0.99))+
-  ylim(0, quantile(wine$residual.sugar, 0.99))+
-  geom_smooth(method = 'lm')
-
-
-ggplot(aes(x=alcohol), data = wine)+
-  geom_density(aes(fill=type))+
-  facet_wrap(~quality)
-
-names(wine)
-```
-
 
 
 ```{r echo=FALSE, Bivariate_Plots}
@@ -460,6 +495,26 @@ the dataset?
 
 
 # Multivariate Plots Section
+
+## Alcohol and Quality relationship: 
+```{r}
+ggplot(aes(x=chlorides), data = wine)+
+  geom_density(aes(fill=type))+
+  scale_x_continuous(breaks = seq(0, 1.5, 0.07), lim = c(0, quantile(wine$chlorides, 0.99)))+
+  facet_wrap(~quality)
+
+```
+
+
+```{r Chlorides vs. residual sugar}
+ggplot(aes(chlorides, residual.sugar), data = wine)+
+  geom_point(aes(color=type))+
+  xlim(0, quantile(wine$chlorides, 0.99))+
+  ylim(0, quantile(wine$residual.sugar, 0.99))+
+  geom_smooth(method = 'lm')
+names(wine)
+```
+
 
 ```{r}
 ggplot(aes(quality,pH), data = wine)+
